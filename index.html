@@ -791,7 +791,7 @@
                 ctx.strokeStyle = '#333';
                 ctx.lineWidth = 2;
                 
-                const startY = this.currentClef === 'treble' ? 80 : 100;
+                const startY = 80; // Fixed position for consistency
                 
                 for (let i = 0; i < 5; i++) {
                     const y = startY + i * 15;
@@ -805,7 +805,7 @@
                 ctx.font = '48px serif';
                 ctx.fillStyle = '#333';
                 const clefSymbol = this.currentClef === 'treble' ? '𝄞' : '𝄢';
-                const clefY = this.currentClef === 'treble' ? 115 : 140;
+                const clefY = 115; // Fixed position
                 ctx.fillText(clefSymbol, 110, clefY);
                 
                 // Draw note
@@ -813,36 +813,86 @@
             }
 
             drawNote(ctx) {
+                // Correctly positioned notes
                 const notePositions = {
                     treble: {
-                        'G3': 170, 'A3': 162, 'B3': 155, 
-                        'C4': 147, 'D4': 140, 'E4': 132, 'F4': 125, 'G4': 117, 'A4': 110, 'B4': 102, 
-                        'C5': 95, 'D5': 87, 'E5': 80, 'F5': 72, 'G5': 65, 'A5': 57
+                        // Below staff 
+                        'G3': 184, // Space below second ledger line
+                        'A3': 177, // On second ledger line below staff
+                        'B3': 170, // Space below first ledger line
+                        'C4': 162, // On first ledger line below staff (middle C)
+                        'D4': 155, // Space below staff
+                        // On staff
+                        'E4': 147, // Bottom line
+                        'F4': 140, // First space
+                        'G4': 132, // Second line
+                        'A4': 125, // Second space
+                        'B4': 117, // Third line
+                        'C5': 110, // Third space
+                        'D5': 102, // Fourth line
+                        'E5': 95,  // Fourth space
+                        'F5': 87,  // Top line
+                        // Above staff
+                        'G5': 80   // Space above staff
                     },
                     bass: {
-                        'E2': 170, 'F2': 162, 'G2': 155,
-                        'A2': 147, 'B2': 140, 'C3': 132, 'D3': 125, 'E3': 117, 'F3': 110, 'G3': 102,
-                        'A3': 95, 'B3': 87, 'C4': 80
+                        // Below staff
+                        'E2': 184, // Space below second ledger line
+                        'F2': 177, // On second ledger line below
+                        'G2': 170, // Space below first ledger line
+                        'A2': 162, // On first ledger line below
+                        'B2': 155, // Space below staff
+                        // On staff  
+                        'C3': 147, // Bottom line (G)
+                        'D3': 140, // First space
+                        'E3': 132, // Second line (B)
+                        'F3': 125, // Second space
+                        'G3': 117, // Third line (D)
+                        'A3': 110, // Third space
+                        'B3': 102, // Fourth line (F)
+                        'C4': 95   // Fourth space
                     }
                 };
                 
                 const positions = notePositions[this.currentClef];
                 if (!positions || !positions[this.currentNote]) {
                     console.error(`No position found for ${this.currentNote} on ${this.currentClef} clef`);
+                    console.log('Available positions:', Object.keys(positions || {}));
+                    // Don't return - just draw a default position
+                    const y = 147; // Default to bottom line
+                    this.drawNoteAtPosition(ctx, 300, y);
                     return;
                 }
                 
                 const y = positions[this.currentNote];
                 const x = 300;
                 
+                console.log(`Drawing note ${this.currentNote} at position y=${y}`);
+                
+                this.drawNoteAtPosition(ctx, x, y);
+                
+                // Debug info
+                ctx.fillStyle = '#333';
+                ctx.font = '16px Arial';
+                ctx.fillText(`Debug: ${this.currentNote} at y=${y}`, 10, 30);
+                
+                // Staff reference
+                ctx.font = '12px Arial';
+                if (this.currentClef === 'treble') {
+                    ctx.fillText(`Treble: E(147) G(132) B(117) D(102) F(87)`, 10, 50);
+                    ctx.fillText(`Below staff: C4(162-ledger) D4(155-space) | G3(184-space) A3(177-ledger)`, 10, 65);
+                }
+            }
+
+            drawNoteAtPosition(ctx, x, y) {
                 // Draw note head
-                ctx.fillStyle = '#4299e1';
+                ctx.fillStyle = '#e53e3e';
                 ctx.beginPath();
                 ctx.ellipse(x, y, 12, 8, 0, 0, 2 * Math.PI);
                 ctx.fill();
                 
                 // Draw stem
-                ctx.strokeStyle = '#4299e1';
+                ctx.strokeStyle = '#e53e3e';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
                 if (y > 125) {
@@ -858,26 +908,33 @@
                 ctx.strokeStyle = '#333';
                 ctx.lineWidth = 2;
                 
-                const staffTop = this.currentClef === 'treble' ? 80 : 100;
-                const staffBottom = staffTop + 60;
+                const staffBottom = 147; // Bottom line of staff
                 
-                if (y < staffTop) {
-                    // Above staff
+                // Ledger lines below staff
+                if (y >= 162) { // First ledger line position (middle C)
+                    ctx.beginPath();
+                    ctx.moveTo(x - 20, 162);
+                    ctx.lineTo(x + 20, 162);
+                    ctx.stroke();
+                }
+                if (y >= 177) { // Second ledger line position 
+                    ctx.beginPath();
+                    ctx.moveTo(x - 20, 177);
+                    ctx.lineTo(x + 20, 177);
+                    ctx.stroke();
+                }
+                
+                // Ledger lines above staff
+                const staffTop = 87;
+                if (y <= 80) { // Above staff
                     for (let ledgerY = staffTop - 15; ledgerY >= y - 5; ledgerY -= 15) {
                         ctx.beginPath();
                         ctx.moveTo(x - 20, ledgerY);
                         ctx.lineTo(x + 20, ledgerY);
                         ctx.stroke();
                     }
-                } else if (y > staffBottom) {
-                    // Below staff
-                    for (let ledgerY = staffBottom + 15; ledgerY <= y + 5; ledgerY += 15) {
-                        ctx.beginPath();
-                        ctx.moveTo(x - 20, ledgerY);
-                        ctx.lineTo(x + 20, ledgerY);
-                        ctx.stroke();
-                    }
                 }
+            }}
             }
 
             handleNoteInput() {
@@ -932,7 +989,11 @@
 
             showFeedback(isCorrect, correctAnswer) {
                 const feedbackSection = document.getElementById('feedbackSection');
+                const userAnswer = document.getElementById('noteInput').value.toUpperCase();
+                
                 feedbackSection.style.display = 'block';
+                
+                console.log(`Feedback: User=${userAnswer}, Correct=${correctAnswer}, Match=${isCorrect}`);
                 
                 if (isCorrect) {
                     feedbackSection.className = 'feedback-section feedback-correct';
@@ -944,7 +1005,8 @@
                     feedbackSection.className = 'feedback-section feedback-incorrect';
                     feedbackSection.innerHTML = `
                         <div>❌ Not quite...</div>
-                        <div>That note is ${correctAnswer}, not ${document.getElementById('noteInput').value.toUpperCase()}</div>
+                        <div>That note is ${correctAnswer}, you answered ${userAnswer}</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">Note shown: ${this.currentNote}</div>
                     `;
                 }
             }
