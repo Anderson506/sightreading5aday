@@ -803,3 +803,359 @@
                 // Draw note
                 this.drawNote(ctx);
             }
+
+            drawNote(ctx) {
+                const notePositions = {
+                    treble: {
+                        'G3': 170, 'A3': 162, 'B3': 155, 
+                        'C4': 147, 'D4': 140, 'E4': 132, 'F4': 125, 'G4': 117, 'A4': 110, 'B4': 102, 
+                        'C5': 95, 'D5': 87, 'E5': 80, 'F5': 72, 'G5': 65, 'A5': 57
+                    },
+                    bass: {
+                        'E2': 170, 'F2': 162, 'G2': 155,
+                        'A2': 147, 'B2': 140, 'C3': 132, 'D3': 125, 'E3': 117, 'F3': 110, 'G3': 102,
+                        'A3': 95, 'B3': 87, 'C4': 80
+                    }
+                };
+                
+                const y = notePositions[this.currentClef][this.currentNote];
+                const x = 300;
+                
+                // Draw note head
+                ctx.fillStyle = '#4299e1';
+                ctx.beginPath();
+                ctx.ellipse(x, y, 12, 8, 0, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Draw stem
+                ctx.strokeStyle = '#4299e1';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                if (y > 125) {
+                    ctx.moveTo(x + 12, y);
+                    ctx.lineTo(x + 12, y - 35);
+                } else {
+                    ctx.moveTo(x - 12, y);
+                    ctx.lineTo(x - 12, y + 35);
+                }
+                ctx.stroke();
+                
+                // Add ledger lines if needed
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                
+                const staffTop = this.currentClef === 'treble' ? 80 : 100;
+                const staffBottom = staffTop + 60;
+                
+                if (y < staffTop) {
+                    // Above staff
+                    for (let ledgerY = staffTop - 15; ledgerY >= y - 5; ledgerY -= 15) {
+                        ctx.beginPath();
+                        ctx.moveTo(x - 20, ledgerY);
+                        ctx.lineTo(x + 20, ledgerY);
+                        ctx.stroke();
+                    }
+                } else if (y > staffBottom) {
+                    // Below staff
+                    for (let ledgerY = staffBottom + 15; ledgerY <= y + 5; ledgerY += 15) {
+                        ctx.beginPath();
+                        ctx.moveTo(x - 20, ledgerY);
+                        ctx.lineTo(x + 20, ledgerY);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            handleNoteInput() {
+                const input = document.getElementById('noteInput');
+                const value = input.value.toUpperCase();
+                
+                // Only allow A-G
+                if (value && !/^[A-G]$/.test(value)) {
+                    input.value = '';
+                    return;
+                }
+                
+                // Enable submit button if valid input
+                document.getElementById('submitBtn').disabled = !value;
+            }
+
+            submitAnswer() {
+                const userAnswer = document.getElementById('noteInput').value.toUpperCase();
+                const correctAnswer = this.currentNote.charAt(0);
+                const isCorrect = userAnswer === correctAnswer;
+                
+                // Store answer
+                this.answers.push({
+                    question: this.currentQuestion,
+                    note: this.currentNote,
+                    clef: this.currentClef,
+                    userAnswer: userAnswer,
+                    correctAnswer: correctAnswer,
+                    isCorrect: isCorrect
+                });
+                
+                // Update progress dot
+                const progressDot = document.getElementById(`progress-${this.currentQuestion}`);
+                progressDot.classList.add(isCorrect ? 'correct' : 'incorrect');
+                progressDot.textContent = isCorrect ? '✓' : '✗';
+                
+                // Show feedback
+                this.showFeedback(isCorrect, correctAnswer);
+                
+                // Auto-advance after delay
+                setTimeout(() => {
+                    this.nextQuestion();
+                }, 1500);
+            }
+
+            showFeedback(isCorrect, correctAnswer) {
+                const feedbackSection = document.getElementById('feedbackSection');
+                feedbackSection.style.display = 'block';
+                
+                if (isCorrect) {
+                    feedbackSection.className = 'feedback-section feedback-correct';
+                    feedbackSection.innerHTML = `
+                        <div>✅ Correct!</div>
+                        <div>That note is ${correctAnswer}!</div>
+                    `;
+                } else {
+                    feedbackSection.className = 'feedback-section feedback-incorrect';
+                    feedbackSection.innerHTML = `
+                        <div>❌ Not quite...</div>
+                        <div>That note is ${correctAnswer}, not ${document.getElementById('noteInput').value.toUpperCase()}</div>
+                    `;
+                }
+            }
+
+            updateProgressDots() {
+                // Remove current class from all dots
+                document.querySelectorAll('.progress-dot').forEach(dot => {
+                    dot.classList.remove('current');
+                });
+                
+                // Add current class to current question
+                const currentDot = document.getElementById(`progress-${this.currentQuestion}`);
+                if (currentDot) {
+                    currentDot.classList.add('current');
+                }
+            }
+
+            async playCurrentNote() {
+                await Tone.start();
+                
+                const playBtn = document.getElementById('playNoteBtn');
+                const originalText = playBtn.textContent;
+                
+                playBtn.textContent = '🔊 Playing...';
+                playBtn.disabled = true;
+                
+                this.synth.triggerAttackRelease(this.currentNote, '1n');
+                
+                setTimeout(() => {
+                    playBtn.textContent = originalText;
+                    playBtn.disabled = false;
+                }, 1000);
+            }
+
+            completeQuiz() {
+                const correctAnswers = this.answers.filter(a => a.isCorrect).length;
+                const percentage = Math.round((correctAnswers / this.totalQuestions) * 100);
+                const timeSpent = Math.round((Date.now() - this.startTime) / 1000);
+                
+                // Update streak
+                const today = new Date().toDateString();
+                const yesterday = new Date(Date.now() - 24*60*60*1000).toDateString();
+                
+                if (this.lastQuizDate === yesterday) {
+                    this.streak++;
+                } else if (this.lastQuizDate !== today) {
+                    this.streak = 1; // Reset streak if gap
+                }
+                
+                this.saveStreak();
+                this.saveLastQuizDate(today);
+                
+                // Show results
+                this.showResults(correctAnswers, percentage, timeSpent);
+            }
+
+            showResults(correctAnswers, percentage, timeSpent) {
+                // Hide quiz section
+                document.getElementById('quizSection').classList.add('hidden');
+                
+                // Show results
+                const resultsSection = document.getElementById('resultsSection');
+                resultsSection.style.display = 'block';
+                
+                // Update results display
+                document.getElementById('finalScore').textContent = `${correctAnswers}/${this.totalQuestions}`;
+                document.getElementById('correctCount').textContent = correctAnswers;
+                document.getElementById('percentageScore').textContent = percentage + '%';
+                document.getElementById('timeSpent').textContent = this.formatTime(timeSpent);
+                
+                // Update streak message
+                const streakMessage = document.getElementById('streakMessage');
+                if (percentage >= 80) {
+                    streakMessage.textContent = `Excellent work! Your ${this.streak}-day streak continues! 🔥`;
+                } else if (percentage >= 60) {
+                    streakMessage.textContent = `Good effort! Keep practicing to strengthen your streak.`;
+                } else {
+                    streakMessage.textContent = `Keep practicing! Every day of practice helps build your skills.`;
+                }
+                
+                // Update streak display
+                document.getElementById('streakNumber').textContent = this.streak;
+                
+                // Show export section
+                document.getElementById('exportSection').style.display = 'block';
+            }
+
+            formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }
+
+            resetQuiz() {
+                // Hide results and show quiz again
+                document.getElementById('resultsSection').style.display = 'none';
+                document.getElementById('exportSection').style.display = 'none';
+                document.getElementById('quizSection').classList.remove('hidden');
+                
+                // Reset quiz state
+                this.currentQuestion = 0;
+                this.answers = [];
+                this.startTime = Date.now();
+                
+                // Reset progress dots
+                this.generateDailyProgress();
+                this.nextQuestion();
+            }
+
+            resetForNewDay() {
+                // Reset everything for a fresh start
+                document.getElementById('resultsSection').style.display = 'none';
+                document.getElementById('exportSection').style.display = 'none';
+                document.getElementById('quizSection').classList.add('hidden');
+                document.getElementById('streakDisplay').style.display = 'none';
+                document.getElementById('voiceSelector').style.display = 'block';
+                document.getElementById('startSection').style.display = 'block';
+                
+                // Clear answers
+                this.answers = [];
+                this.currentQuestion = 0;
+            }
+
+            loadStreak() {
+                return parseInt(localStorage.getItem('noteReadingStreak') || '0');
+            }
+
+            saveStreak() {
+                localStorage.setItem('noteReadingStreak', this.streak.toString());
+            }
+
+            loadLastQuizDate() {
+                return localStorage.getItem('lastNoteQuizDate') || '';
+            }
+
+            saveLastQuizDate(date) {
+                localStorage.setItem('lastNoteQuizDate', date);
+                this.lastQuizDate = date;
+            }
+
+            updateStreakDisplay() {
+                if (this.streak > 0) {
+                    document.getElementById('streakNumber').textContent = this.streak;
+                }
+            }
+
+            getResultsText() {
+                const correctAnswers = this.answers.filter(a => a.isCorrect).length;
+                const percentage = Math.round((correctAnswers / this.totalQuestions) * 100);
+                const timeSpent = Math.round((Date.now() - this.startTime) / 1000);
+                
+                let detailedResults = '';
+                this.answers.forEach((answer, index) => {
+                    detailedResults += `Question ${index + 1}: ${answer.note} (${answer.clef} clef) - `;
+                    detailedResults += `Student answered: ${answer.userAnswer}, Correct: ${answer.correctAnswer} `;
+                    detailedResults += `${answer.isCorrect ? '✓' : '✗'}\n`;
+                });
+
+                return `5-a-Day Note Reading Quiz Results
+Date: ${new Date().toLocaleString()}
+Student Name: ___________________
+
+QUIZ SUMMARY:
+Voice Type: ${this.selectedVoice.charAt(0).toUpperCase() + this.selectedVoice.slice(1)}
+Score: ${correctAnswers}/${this.totalQuestions} (${percentage}%)
+Time Taken: ${this.formatTime(timeSpent)}
+Current Streak: ${this.streak} days
+
+DETAILED RESULTS:
+${detailedResults}
+
+PERFORMANCE ANALYSIS:
+${percentage >= 80 ? 'Excellent note reading! Student shows strong staff recognition skills.' :
+  percentage >= 60 ? 'Good progress. Continue daily practice to improve accuracy.' :
+  'Needs more practice. Recommend additional note identification exercises.'}
+
+NOTES FOR TEACHER:
+- Student practiced notes appropriate for their voice type
+- Daily practice helps build automatic note recognition
+- Consider additional staff reading exercises if score is below 60%
+- Streak tracking encourages consistent practice habits
+
+RECOMMENDATIONS:
+- Continue daily 5-a-Day practice
+- Focus on note reading within comfortable vocal range
+- Use audio playback feature to connect visual and auditory learning
+- Build toward sight-singing once note recognition is automatic
+
+Generated by 5-a-Day Note Reading Quiz
+Part of the Choir Education Tool Suite`;
+            }
+
+            copyResults() {
+                const resultsText = this.getResultsText();
+                
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(resultsText).then(() => {
+                        const status = document.getElementById('copyStatus');
+                        status.style.display = 'block';
+                        setTimeout(() => { status.style.display = 'none'; }, 2000);
+                    });
+                } else {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = resultsText;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    
+                    const status = document.getElementById('copyStatus');
+                    status.style.display = 'block';
+                    setTimeout(() => { status.style.display = 'none'; }, 2000);
+                }
+            }
+
+            exportResults() {
+                const resultsText = this.getResultsText();
+                const dataBlob = new Blob([resultsText], {type: 'text/plain'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `note-reading-quiz-${new Date().toISOString().split('T')[0]}.txt`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            new NoteReadingQuiz();
+        });
+    </script>
+</body>
+</html>
