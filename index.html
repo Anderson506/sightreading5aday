@@ -697,6 +697,8 @@
                     return;
                 }
 
+                console.log(`Starting quiz for voice: ${this.selectedVoice}`); // Debug log
+
                 this.currentQuestion = 0;
                 this.answers = [];
                 this.startTime = Date.now();
@@ -739,13 +741,17 @@
                 // Generate new note
                 this.generateRandomNote();
                 
-                // Reset input
-                document.getElementById('noteInput').value = '';
+                // Reset input and UI
+                const noteInput = document.getElementById('noteInput');
+                noteInput.value = '';
+                noteInput.disabled = false;
                 document.getElementById('submitBtn').disabled = true;
                 document.getElementById('feedbackSection').style.display = 'none';
                 
                 // Focus input
-                document.getElementById('noteInput').focus();
+                setTimeout(() => {
+                    noteInput.focus();
+                }, 100);
             }
 
             generateRandomNote() {
@@ -764,6 +770,8 @@
                 // Select random note
                 this.currentNote = notes[Math.floor(Math.random() * notes.length)];
                 this.currentClef = clef;
+                
+                console.log(`Generated note: ${this.currentNote} on ${clef} clef`); // Debug log
                 
                 // Update clef indicator
                 const clefIndicator = document.getElementById('clefIndicator');
@@ -818,7 +826,13 @@
                     }
                 };
                 
-                const y = notePositions[this.currentClef][this.currentNote];
+                const positions = notePositions[this.currentClef];
+                if (!positions || !positions[this.currentNote]) {
+                    console.error(`No position found for ${this.currentNote} on ${this.currentClef} clef`);
+                    return;
+                }
+                
+                const y = positions[this.currentNote];
                 const x = 300;
                 
                 // Draw note head
@@ -897,8 +911,15 @@
                 
                 // Update progress dot
                 const progressDot = document.getElementById(`progress-${this.currentQuestion}`);
-                progressDot.classList.add(isCorrect ? 'correct' : 'incorrect');
-                progressDot.textContent = isCorrect ? '✓' : '✗';
+                if (progressDot) {
+                    progressDot.classList.remove('current');
+                    progressDot.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    progressDot.textContent = isCorrect ? '✓' : '✗';
+                }
+                
+                // Disable input to prevent changes
+                document.getElementById('noteInput').disabled = true;
+                document.getElementById('submitBtn').disabled = true;
                 
                 // Show feedback
                 this.showFeedback(isCorrect, correctAnswer);
@@ -906,7 +927,7 @@
                 // Auto-advance after delay
                 setTimeout(() => {
                     this.nextQuestion();
-                }, 1500);
+                }, 2000);
             }
 
             showFeedback(isCorrect, correctAnswer) {
