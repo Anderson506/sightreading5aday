@@ -565,8 +565,9 @@
                 this.startTime = null;
                 this.currentNote = null;
                 this.currentClef = null;
-                this.streak = this.loadStreak();
-                this.lastQuizDate = this.loadLastQuizDate();
+                this.streak = 0; // Start fresh each session
+                this.lastQuizDate = null;
+                this.quizTakenToday = false;
                 
                 // Piano synthesizer for note playback
                 this.synth = new Tone.Synth({
@@ -617,7 +618,7 @@
             init() {
                 this.setupEventListeners();
                 this.updateStreakDisplay();
-                this.checkIfQuizTakenToday();
+                // Remove the localStorage check for now
             }
 
             setupEventListeners() {
@@ -659,8 +660,7 @@
                 // Show start section
                 document.getElementById('startSection').style.display = 'block';
                 
-                // Save preference
-                localStorage.setItem('selectedVoice', voice);
+                // No localStorage saving for now
             }
 
             checkIfQuizTakenToday() {
@@ -963,18 +963,9 @@
                 const percentage = Math.round((correctAnswers / this.totalQuestions) * 100);
                 const timeSpent = Math.round((Date.now() - this.startTime) / 1000);
                 
-                // Update streak
-                const today = new Date().toDateString();
-                const yesterday = new Date(Date.now() - 24*60*60*1000).toDateString();
-                
-                if (this.lastQuizDate === yesterday) {
-                    this.streak++;
-                } else if (this.lastQuizDate !== today) {
-                    this.streak = 1; // Reset streak if gap
-                }
-                
-                this.saveStreak();
-                this.saveLastQuizDate(today);
+                // Simple streak increment for session
+                this.streak++;
+                this.quizTakenToday = true;
                 
                 // Show results
                 this.showResults(correctAnswers, percentage, timeSpent);
@@ -1047,23 +1038,7 @@
                 this.currentQuestion = 0;
             }
 
-            loadStreak() {
-                return parseInt(localStorage.getItem('noteReadingStreak') || '0');
-            }
-
-            saveStreak() {
-                localStorage.setItem('noteReadingStreak', this.streak.toString());
-            }
-
-            loadLastQuizDate() {
-                return localStorage.getItem('lastNoteQuizDate') || '';
-            }
-
-            saveLastQuizDate(date) {
-                localStorage.setItem('lastNoteQuizDate', date);
-                this.lastQuizDate = date;
-            }
-
+            // Remove localStorage methods - not available in sandboxed environment
             updateStreakDisplay() {
                 if (this.streak > 0) {
                     document.getElementById('streakNumber').textContent = this.streak;
