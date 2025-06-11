@@ -283,14 +283,14 @@
         // Note positions
         const notePositions = {
             treble: {
-                'F3': 220, 'G3': 210, 'A3': 200, 'B3': 190, 'C4': 180, 'D4': 170,
-                'E4': 160, 'F4': 150, 'G4': 140, 'A4': 130, 'B4': 120,
-                'C5': 110, 'D5': 100, 'E5': 90, 'F5': 80, 'G5': 70
+                'F3': 180, 'G3': 160, 'A3': 140, 'B3': 120, 'C4': 100, 'D4': 80,
+                'E4': 60, 'F4': 40, 'G4': 20, 'A4': 0, 'B4': -20,
+                'C5': -40, 'D5': -60, 'E5': -80, 'F5': -100, 'G5': -120
             },
             bass: {
-                'E2': 220, 'F2': 210, 'G2': 200, 'A2': 190, 'B2': 180, 'C3': 170,
-                'D3': 160, 'E3': 150, 'F3': 140, 'G3': 130, 'A3': 120, 'B3': 110, 
-                'C4': 100, 'D4': 90, 'E4': 80, 'F4': 70, 'G4': 60, 'A4': 50
+                'E2': 180, 'F2': 160, 'G2': 140, 'A2': 120, 'B2': 100, 'C3': 80,
+                'D3': 60, 'E3': 40, 'F3': 20, 'G3': 0, 'A3': -20, 'B3': -40, 
+                'C4': -60, 'D4': -80, 'E4': -100, 'F4': -120, 'G4': -140, 'A4': -160
             }
         };
 
@@ -382,8 +382,12 @@
             ctx.strokeStyle = '#333';
             ctx.lineWidth = 2;
             
+            // Adjust staff position to center in canvas
+            const staffTop = 80;
+            const lineSpacing = 20;
+            
             for (let i = 0; i < 5; i++) {
-                const y = 100 + i * 20;
+                const y = staffTop + i * lineSpacing;
                 ctx.beginPath();
                 ctx.moveTo(100, y);
                 ctx.lineTo(500, y);
@@ -394,9 +398,9 @@
             ctx.font = '60px serif';
             ctx.fillStyle = '#333';
             if (currentClef === 'treble') {
-                ctx.fillText('𝄞', 110, 150);
+                ctx.fillText('𝄞', 110, staffTop + 40);
             } else {
-                ctx.fillText('𝄢', 110, 135);
+                ctx.fillText('𝄢', 110, staffTop + 40);
             }
             
             // Show clef type
@@ -405,7 +409,7 @@
             ctx.fillText(`${currentClef.charAt(0).toUpperCase() + currentClef.slice(1)} Clef`, 20, 260);
             
             // Draw note
-            drawNote(ctx);
+            drawNote(ctx, staffTop, lineSpacing);
             
             // Debug text
             ctx.fillStyle = '#333';
@@ -413,9 +417,9 @@
             ctx.fillText(`Debug: ${currentNote}`, 20, 30);
         }
 
-        function drawNote(ctx) {
+        function drawNote(ctx, staffTop, lineSpacing) {
             const positions = notePositions[currentClef];
-            const y = positions[currentNote] || 150;
+            const y = positions[currentNote] || staffTop + 40;
             const x = 300;
             
             // Draw note
@@ -428,7 +432,7 @@
             ctx.strokeStyle = '#e53e3e';
             ctx.lineWidth = 3;
             ctx.beginPath();
-            if (y > 150) {
+            if (y > staffTop + 40) {
                 ctx.moveTo(x + 10, y);
                 ctx.lineTo(x + 10, y - 30);
             } else {
@@ -442,8 +446,8 @@
             ctx.lineWidth = 2;
             
             // Below staff ledger lines
-            if (y > 200) {
-                for (let ledgerY = 200; ledgerY <= y; ledgerY += 20) {
+            if (y > staffTop + 80) {
+                for (let ledgerY = staffTop + 80; ledgerY <= y; ledgerY += lineSpacing) {
                     ctx.beginPath();
                     ctx.moveTo(x - 15, ledgerY);
                     ctx.lineTo(x + 15, ledgerY);
@@ -452,8 +456,8 @@
             }
             
             // Above staff ledger lines  
-            if (y < 100) {
-                for (let ledgerY = 80; ledgerY >= y; ledgerY -= 20) {
+            if (y < staffTop) {
+                for (let ledgerY = staffTop; ledgerY >= y; ledgerY -= lineSpacing) {
                     ctx.beginPath();
                     ctx.moveTo(x - 15, ledgerY);
                     ctx.lineTo(x + 15, ledgerY);
