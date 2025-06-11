@@ -35,11 +35,6 @@
             font-size: 2.5rem;
         }
 
-        .header p {
-            color: #718096;
-            font-size: 1.1rem;
-        }
-
         .voice-selector {
             background: #f0f8ff;
             border: 2px solid #bee3f8;
@@ -47,7 +42,6 @@
             padding: 20px;
             margin-bottom: 30px;
             text-align: center;
-            border-left: 4px solid #4299e1;
         }
 
         .voice-options {
@@ -66,13 +60,11 @@
             font-size: 16px;
             font-weight: 600;
             transition: all 0.3s ease;
-            text-align: center;
         }
 
         .voice-btn:hover {
             border-color: #4299e1;
             background: #ebf8ff;
-            transform: translateY(-2px);
         }
 
         .voice-btn.selected {
@@ -81,113 +73,34 @@
             color: white;
         }
 
-        .streak-display {
-            background: #f0fff4;
-            border: 2px solid #c6f6d5;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
+        .start-section {
             text-align: center;
-            border-left: 4px solid #38a169;
-        }
-
-        .streak-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #38a169;
-            margin: 10px 0;
-        }
-
-        .streak-label {
-            color: #22543d;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .daily-progress {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
             margin: 20px 0;
-        }
-
-        .progress-dot {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #718096;
-            border: 2px solid #e2e8f0;
-        }
-
-        .progress-dot.correct {
-            background: #c6f6d5;
-            color: #22543d;
-            border-color: #38a169;
-        }
-
-        .progress-dot.incorrect {
-            background: #fed7d7;
-            color: #c53030;
-            border-color: #e53e3e;
-        }
-
-        .progress-dot.current {
-            background: #bee3f8;
-            color: #1a365d;
-            border-color: #4299e1;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .quiz-section {
-            background: #f7fafc;
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #e2e8f0;
-            margin-bottom: 30px;
-        }
-
-        .quiz-section.hidden {
             display: none;
         }
 
-        .staff-display {
-            background: white;
-            border: 2px solid #cbd5e0;
-            border-radius: 10px;
+        .quiz-section {
+            display: none;
+            background: #f7fafc;
             padding: 20px;
+            border-radius: 15px;
             margin: 20px 0;
-            text-align: center;
         }
 
         .staff-canvas {
             width: 100%;
             max-width: 600px;
-            height: 250px;
+            height: 300px;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             background: white;
-        }
-
-        .question-info {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 1.2rem;
-            color: #4a5568;
+            display: block;
+            margin: 20px auto;
         }
 
         .input-section {
             text-align: center;
-            margin: 30px 0;
+            margin: 20px 0;
         }
 
         .note-input {
@@ -197,23 +110,9 @@
             border-radius: 10px;
             text-align: center;
             width: 100px;
-            margin: 0 15px;
+            margin: 10px;
             font-weight: bold;
             text-transform: uppercase;
-            background: #f7fafc;
-        }
-
-        .note-input:focus {
-            outline: none;
-            border-color: #2b6cb0;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
-        }
-
-        .input-instructions {
-            margin: 15px 0;
-            color: #718096;
-            font-size: 1rem;
         }
 
         .btn {
@@ -223,14 +122,8 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            transition: all 0.3s ease;
             margin: 5px;
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+            transition: all 0.3s ease;
         }
 
         .btn-primary {
@@ -238,9 +131,8 @@
             color: white;
         }
 
-        .btn-primary:hover:not(:disabled) {
+        .btn-primary:hover {
             background: #3182ce;
-            transform: translateY(-2px);
         }
 
         .btn-success {
@@ -248,161 +140,42 @@
             color: white;
         }
 
-        .btn-success:hover:not(:disabled) {
-            background: #38a169;
-            transform: translateY(-2px);
-        }
-
         .btn-secondary {
             background: #a0aec0;
             color: white;
         }
 
-        .btn-secondary:hover:not(:disabled) {
-            background: #718096;
-            transform: translateY(-2px);
-        }
-
-        .feedback-section {
-            text-align: center;
+        .feedback {
             margin: 20px 0;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .feedback-correct {
-            background: #c6f6d5;
-            color: #22543d;
-            border: 2px solid #38a169;
-        }
-
-        .feedback-incorrect {
-            background: #fed7d7;
-            color: #c53030;
-            border: 2px solid #e53e3e;
-        }
-
-        .results-section {
-            background: #f0f8ff;
-            border: 2px solid #bee3f8;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            margin: 30px 0;
-            border-left: 4px solid #4299e1;
-        }
-
-        .final-score {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #4299e1;
-            margin: 20px 0;
-        }
-
-        .score-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .score-item {
-            background: white;
             padding: 15px;
             border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .score-value {
-            font-size: 2rem;
+            text-align: center;
             font-weight: bold;
-            color: #4a5568;
+            display: none;
         }
 
-        .score-label {
-            color: #718096;
-            font-size: 0.9rem;
-        }
-
-        .export-section {
-            background: #f0fff4;
-            border: 2px solid #c6f6d5;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            border-left: 4px solid #38a169;
-        }
-
-        .start-section {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .motivation-quote {
-            background: #fef5e7;
-            border: 2px solid #f6ad55;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            border-left: 4px solid #ed8936;
-            font-style: italic;
-            color: #975a16;
-        }
-
-        .clef-indicator {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            margin: 10px 5px;
-        }
-
-        .treble-clef {
-            background: #bee3f8;
-            color: #1a365d;
-        }
-
-        .bass-clef {
+        .feedback.correct {
             background: #c6f6d5;
             color: #22543d;
         }
 
-        @media (max-width: 768px) {
-            .voice-options {
-                grid-template-columns: 1fr 1fr;
-            }
-            
-            .score-breakdown {
-                grid-template-columns: 1fr;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .note-input {
-                font-size: 1.5rem;
-                width: 80px;
-            }
+        .feedback.incorrect {
+            background: #fed7d7;
+            color: #c53030;
         }
 
-        .help-section {
-            background: #ebf8ff;
-            border: 2px solid #bee3f8;
-            border-radius: 10px;
-            padding: 20px;
+        .progress {
+            text-align: center;
             margin: 20px 0;
-            border-left: 4px solid #4299e1;
         }
 
-        .help-section h3 {
-            color: #2b6cb0;
-            margin-top: 0;
+        .results {
+            display: none;
+            text-align: center;
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
         }
 
         .copy-status {
@@ -420,738 +193,329 @@
             <p>Build your note reading skills with daily practice!</p>
         </div>
 
-        <!-- Voice Selection Section -->
+        <!-- Voice Selection -->
         <div class="voice-selector" id="voiceSelector">
             <h3>🎵 Select Your Voice Type</h3>
-            <p>Choose your voice part to practice the notes you'll actually sing in choir!</p>
-            
             <div class="voice-options">
                 <div class="voice-btn" data-voice="soprano">
-                    <div>🎵 Soprano</div>
-                    <div style="font-size: 0.9rem; color: #718096;">Treble Clef</div>
+                    <div>Soprano</div>
+                    <div style="font-size: 0.8rem; color: #718096;">Treble Clef</div>
                 </div>
                 <div class="voice-btn" data-voice="alto">
-                    <div>🎵 Alto</div>
-                    <div style="font-size: 0.9rem; color: #718096;">Treble Clef</div>
+                    <div>Alto</div>
+                    <div style="font-size: 0.8rem; color: #718096;">Treble Clef</div>
                 </div>
                 <div class="voice-btn" data-voice="tenor">
-                    <div>🎵 Tenor</div>
-                    <div style="font-size: 0.9rem; color: #718096;">Treble Clef</div>
-                </div>
-                <div class="voice-btn" data-voice="baritone">
-                    <div>🎵 Baritone</div>
-                    <div style="font-size: 0.9rem; color: #718096;">Bass Clef</div>
+                    <div>Tenor</div>
+                    <div style="font-size: 0.8rem; color: #718096;">Treble Clef</div>
                 </div>
                 <div class="voice-btn" data-voice="bass">
-                    <div>🎵 Bass</div>
-                    <div style="font-size: 0.9rem; color: #718096;">Bass Clef</div>
+                    <div>Bass</div>
+                    <div style="font-size: 0.8rem; color: #718096;">Bass Clef</div>
                 </div>
-                <div class="voice-btn" data-voice="mixed">
-                    <div>🎭 Mixed Practice</div>
-                    <div style="font-size: 0.9rem; color: #718096;">Both Clefs</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Streak Display -->
-        <div class="streak-display" id="streakDisplay" style="display: none;">
-            <div class="streak-number" id="streakNumber">0</div>
-            <div class="streak-label">Day Streak! 🔥</div>
-            <div style="margin-top: 10px; color: #22543d;">
-                Keep it up! Daily practice builds note reading fluency.
-            </div>
-        </div>
-
-        <!-- Quiz Section -->
-        <div class="quiz-section hidden" id="quizSection">
-            <div class="daily-progress" id="dailyProgress">
-                <!-- Progress dots will be generated by JavaScript -->
-            </div>
-
-            <div class="question-info">
-                <div>Question <span id="currentQuestion">1</span> of 5</div>
-                <div style="margin: 10px 0;">
-                    <span class="clef-indicator" id="clefIndicator">Treble Clef</span>
-                </div>
-            </div>
-
-            <div class="staff-display">
-                <canvas id="staffCanvas" class="staff-canvas" width="600" height="250"></canvas>
-            </div>
-
-            <div class="input-section">
-                <div class="input-instructions">
-                    Type the note name (A, B, C, D, E, F, or G):
-                </div>
-                <input type="text" id="noteInput" class="note-input" maxlength="1" autocomplete="off">
-                <div style="margin-top: 15px;">
-                    <button class="btn btn-primary" id="submitBtn" disabled>Submit Answer</button>
-                    <button class="btn btn-secondary" id="playNoteBtn">🔊 Play Note</button>
-                </div>
-            </div>
-
-            <div class="feedback-section" id="feedbackSection" style="display: none;">
-                <!-- Feedback will be shown here -->
             </div>
         </div>
 
         <!-- Start Section -->
-        <div class="start-section" id="startSection" style="display: none;">
-            <div class="motivation-quote">
-                "The beautiful thing about learning is that no one can take it away from you." - B.B. King
+        <div class="start-section" id="startSection">
+            <button class="btn btn-success" id="startBtn">🚀 Start Today's Quiz</button>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section" id="quizSection">
+            <div class="progress" id="progress">Question 1 of 5</div>
+            <canvas id="staffCanvas" class="staff-canvas" width="600" height="300"></canvas>
+            
+            <div class="input-section">
+                <p>Type the note name (A, B, C, D, E, F, or G):</p>
+                <input type="text" id="noteInput" class="note-input" maxlength="1">
+                <br>
+                <button class="btn btn-primary" id="submitBtn">Submit Answer</button>
+                <button class="btn btn-primary" id="playBtn">🔊 Play Note</button>
             </div>
-            <button class="btn btn-success" id="startQuizBtn" style="font-size: 1.2rem; padding: 15px 30px;">
-                🚀 Start Today's Quiz
-            </button>
+
+            <div class="feedback" id="feedback"></div>
         </div>
 
         <!-- Results Section -->
-        <div class="results-section" id="resultsSection" style="display: none;">
+        <div class="results" id="results">
             <h3>🎉 Quiz Complete!</h3>
-            <div class="final-score" id="finalScore">4/5</div>
-            <div id="streakMessage">Great job! Your streak continues!</div>
-            
-            <div class="score-breakdown">
-                <div class="score-item">
-                    <div class="score-value" id="correctCount">4</div>
-                    <div class="score-label">Correct</div>
-                </div>
-                <div class="score-item">
-                    <div class="score-value" id="percentageScore">80%</div>
-                    <div class="score-label">Accuracy</div>
-                </div>
-                <div class="score-item">
-                    <div class="score-value" id="timeSpent">1:23</div>
-                    <div class="score-label">Time</div>
-                </div>
-            </div>
-
+            <div id="finalScore">Score: 0/5</div>
             <div style="margin: 20px 0;">
-                <button class="btn btn-primary" id="tryAgainBtn">🔄 Practice More</button>
-                <button class="btn btn-secondary" id="newQuizBtn">📝 New Quiz Tomorrow</button>
+                <button class="btn btn-primary" id="newQuizBtn">Take Another Quiz</button>
+                <button class="btn btn-success" id="copyResultsBtn">📋 Copy Results</button>
+                <button class="btn btn-secondary" id="exportFileBtn">💾 Download Report</button>
             </div>
-        </div>
-
-        <!-- Export Section -->
-        <div class="export-section" id="exportSection" style="display: none;">
-            <h3>📤 Share Your Results</h3>
-            <p>Export your quiz results for your choir director or submit to Google Classroom</p>
-            <button class="btn btn-primary" id="copyResultsBtn">📋 Copy Results</button>
-            <button class="btn btn-secondary" id="exportFileBtn">💾 Download Report</button>
             <div class="copy-status" id="copyStatus">Copied to clipboard!</div>
-        </div>
-
-        <!-- Help Section -->
-        <div class="help-section">
-            <h3>📚 How to Use This Quiz</h3>
-            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
-                <li><strong>Choose your voice type</strong> to practice notes in your range</li>
-                <li><strong>Take 5 questions daily</strong> to build note reading fluency</li>
-                <li><strong>Type note names</strong> using letter names (A, B, C, D, E, F, G)</li>
-                <li><strong>Build your streak</strong> by practicing every day</li>
-                <li><strong>Use the play button</strong> to hear how the note sounds</li>
-                <li><strong>Export results</strong> to share your progress with your teacher</li>
-            </ul>
         </div>
     </div>
 
     <script>
-        class NoteReadingQuiz {
-            constructor() {
-                this.selectedVoice = null;
-                this.currentQuestion = 0;
-                this.totalQuestions = 5;
-                this.answers = [];
-                this.startTime = null;
-                this.currentNote = null;
-                this.currentClef = null;
-                this.streak = 0; // Start fresh each session
-                this.lastQuizDate = null;
-                this.quizTakenToday = false;
-                
-                // Piano synthesizer for note playback
-                this.synth = new Tone.Synth({
-                    oscillator: { type: "triangle" },
-                    envelope: { attack: 0.02, decay: 0.1, sustain: 0.3, release: 1.2 }
-                }).toDestination();
+        // Global variables
+        let selectedVoice = null;
+        let currentQuestion = 1;
+        let totalQuestions = 5;
+        let currentNote = null;
+        let currentClef = null;
+        let answers = [];
+        let synth = null;
 
-                // Note ranges for each voice type (practical singing ranges)
-                this.voiceRanges = {
-                    soprano: {
-                        clef: 'treble',
-                        notes: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5', 'A5']
-                    },
-                    alto: {
-                        clef: 'treble',
-                        notes: ['G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5']
-                    },
-                    tenor: {
-                        clef: 'treble',
-                        notes: ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4']
-                    },
-                    baritone: {
-                        clef: 'bass',
-                        notes: ['A2', 'B2', 'C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4']
-                    },
-                    bass: {
-                        clef: 'bass',
-                        notes: ['E2', 'F2', 'G2', 'A2', 'B2', 'C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4']
-                    },
-                    mixed: {
-                        clef: 'both',
-                        trebleNotes: ['G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5'],
-                        bassNotes: ['E2', 'F2', 'G2', 'A2', 'B2', 'C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3']
-                    }
-                };
-
-                // Note frequencies for playback
-                this.noteFrequencies = {
-                    'E2': 82.41, 'F2': 87.31, 'G2': 98.00, 'A2': 110.00, 'B2': 123.47,
-                    'C3': 130.81, 'D3': 146.83, 'E3': 164.81, 'F3': 174.61, 'G3': 196.00, 'A3': 220.00, 'B3': 246.94,
-                    'C4': 261.63, 'D4': 293.66, 'E4': 329.63, 'F4': 349.23, 'G4': 392.00, 'A4': 440.00, 'B4': 493.88,
-                    'C5': 523.25, 'D5': 587.33, 'E5': 659.25, 'F5': 698.46, 'G5': 783.99, 'A5': 880.00
-                };
-
-                this.init();
+        // Voice ranges
+        const voiceRanges = {
+            soprano: {
+                clef: 'treble',
+                notes: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5']
+            },
+            alto: {
+                clef: 'treble', 
+                notes: ['F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5']
+            },
+            tenor: {
+                clef: 'treble',
+                notes: ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
+            },
+            bass: {
+                clef: 'bass',
+                notes: ['E2', 'F2', 'G2', 'A2', 'B2', 'C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4']
             }
+        };
 
-            init() {
-                this.setupEventListeners();
-                this.updateStreakDisplay();
-                // Remove the localStorage check for now
+        // Note positions
+        const notePositions = {
+            treble: {
+                'F3': 220, 'G3': 210, 'A3': 200, 'B3': 190, 'C4': 185, 'D4': 175,
+                'E4': 180, 'F4': 170, 'G4': 160, 'A4': 150, 'B4': 140,
+                'C5': 130, 'D5': 120, 'E5': 110, 'F5': 100, 'G5': 90
+            },
+            bass: {
+                'E2': 220, 'F2': 210, 'G2': 200, 'A2': 190, 'B2': 185, 'C3': 175,
+                'D3': 185, 'E3': 175, 'F3': 170, 'G3': 180, 'A3': 170, 'B3': 160, 
+                'C4': 150, 'D4': 140, 'E4': 130, 'F4': 120, 'G4': 110, 'A4': 100
             }
+        };
 
-            setupEventListeners() {
-                // Voice selection
-                document.querySelectorAll('.voice-btn').forEach(btn => {
-                    btn.addEventListener('click', () => this.selectVoice(btn.dataset.voice));
-                });
+        // Initialize
+        function init() {
+            synth = new Tone.Synth().toDestination();
+            setupEventListeners();
+        }
 
-                // Quiz controls
-                document.getElementById('startQuizBtn').addEventListener('click', () => this.startQuiz());
-                document.getElementById('submitBtn').addEventListener('click', () => this.submitAnswer());
-                document.getElementById('playNoteBtn').addEventListener('click', () => this.playCurrentNote());
-                document.getElementById('tryAgainBtn').addEventListener('click', () => this.resetQuiz());
-                document.getElementById('newQuizBtn').addEventListener('click', () => this.resetForNewDay());
+        function setupEventListeners() {
+            // Voice selection
+            document.querySelectorAll('.voice-btn').forEach(btn => {
+                btn.addEventListener('click', () => selectVoice(btn.dataset.voice));
+            });
+            
+            // Quiz controls
+            document.getElementById('startBtn').addEventListener('click', startQuiz);
+            document.getElementById('submitBtn').addEventListener('click', submitAnswer);
+            document.getElementById('playBtn').addEventListener('click', playNote);
+            document.getElementById('newQuizBtn').addEventListener('click', resetQuiz);
+            document.getElementById('copyResultsBtn').addEventListener('click', copyResults);
+            document.getElementById('exportFileBtn').addEventListener('click', exportResults);
+            
+            // Input handling
+            document.getElementById('noteInput').addEventListener('input', function(e) {
+                e.target.value = e.target.value.toUpperCase().replace(/[^A-G]/, '');
+            });
+            
+            document.getElementById('noteInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') submitAnswer();
+            });
+        }
 
-                // Input handling
-                const noteInput = document.getElementById('noteInput');
-                noteInput.addEventListener('input', () => this.handleNoteInput());
-                noteInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' && !document.getElementById('submitBtn').disabled) {
-                        this.submitAnswer();
-                    }
-                });
+        function selectVoice(voice) {
+            selectedVoice = voice;
+            
+            // Update UI
+            document.querySelectorAll('.voice-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelector(`[data-voice="${voice}"]`).classList.add('selected');
+            
+            // Show start button
+            document.getElementById('startSection').style.display = 'block';
+        }
 
-                // Export controls
-                document.getElementById('copyResultsBtn').addEventListener('click', () => this.copyResults());
-                document.getElementById('exportFileBtn').addEventListener('click', () => this.exportResults());
+        function startQuiz() {
+            if (!selectedVoice) return;
+            
+            currentQuestion = 1;
+            answers = [];
+            
+            // Show quiz section
+            document.getElementById('voiceSelector').style.display = 'none';
+            document.getElementById('startSection').style.display = 'none';
+            document.getElementById('quizSection').style.display = 'block';
+            
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion > totalQuestions) {
+                showResults();
+                return;
             }
+            
+            // Update progress
+            document.getElementById('progress').textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+            
+            // Generate random note from voice range
+            const voiceRange = voiceRanges[selectedVoice];
+            const notes = voiceRange.notes;
+            currentNote = notes[Math.floor(Math.random() * notes.length)];
+            currentClef = voiceRange.clef;
+            
+            // Draw staff
+            drawStaff();
+            
+            // Reset input
+            document.getElementById('noteInput').value = '';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('noteInput').focus();
+        }
 
-            selectVoice(voice) {
-                this.selectedVoice = voice;
-                
-                // Update UI
-                document.querySelectorAll('.voice-btn').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-                document.querySelector(`[data-voice="${voice}"]`).classList.add('selected');
-                
-                // Show start section
-                document.getElementById('startSection').style.display = 'block';
-                
-                // No localStorage saving for now
-            }
-
-            checkIfQuizTakenToday() {
-                const today = new Date().toDateString();
-                const lastQuiz = this.loadLastQuizDate();
-                
-                if (lastQuiz === today) {
-                    // Quiz already taken today
-                    this.showCompletionMessage();
-                } else {
-                    // Load saved voice if available
-                    const savedVoice = localStorage.getItem('selectedVoice');
-                    if (savedVoice) {
-                        this.selectVoice(savedVoice);
-                    }
-                }
-            }
-
-            showCompletionMessage() {
-                const container = document.querySelector('.container');
-                container.innerHTML += `
-                    <div style="background: #c6f6d5; border: 2px solid #38a169; border-radius: 15px; padding: 30px; text-align: center; margin: 20px 0;">
-                        <h2 style="color: #22543d; margin-top: 0;">🎉 Great job!</h2>
-                        <p style="color: #22543d; font-size: 1.2rem;">You've already completed today's 5-a-Day Note Reading Quiz!</p>
-                        <p style="color: #22543d;">Come back tomorrow to continue building your streak.</p>
-                        <div style="font-size: 2rem; margin: 20px 0;">Current Streak: <strong>${this.streak} days 🔥</strong></div>
-                    </div>
-                `;
-            }
-
-            startQuiz() {
-                if (!this.selectedVoice) {
-                    alert('Please select your voice type first!');
-                    return;
-                }
-
-                console.log(`Starting quiz for voice: ${this.selectedVoice}`); // Debug log
-
-                this.currentQuestion = 0;
-                this.answers = [];
-                this.startTime = Date.now();
-                
-                // Hide other sections and show quiz
-                document.getElementById('voiceSelector').style.display = 'none';
-                document.getElementById('startSection').style.display = 'none';
-                document.getElementById('quizSection').classList.remove('hidden');
-                document.getElementById('streakDisplay').style.display = 'block';
-                
-                this.generateDailyProgress();
-                this.nextQuestion();
-            }
-
-            generateDailyProgress() {
-                const progressContainer = document.getElementById('dailyProgress');
-                progressContainer.innerHTML = '';
-                
-                for (let i = 1; i <= this.totalQuestions; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'progress-dot';
-                    dot.textContent = i;
-                    dot.id = `progress-${i}`;
-                    progressContainer.appendChild(dot);
-                }
-            }
-
-            nextQuestion() {
-                this.currentQuestion++;
-                
-                if (this.currentQuestion > this.totalQuestions) {
-                    this.completeQuiz();
-                    return;
-                }
-
-                // Update progress
-                this.updateProgressDots();
-                document.getElementById('currentQuestion').textContent = this.currentQuestion;
-                
-                // Generate new note
-                this.generateRandomNote();
-                
-                // Reset input and UI
-                const noteInput = document.getElementById('noteInput');
-                noteInput.value = '';
-                noteInput.disabled = false;
-                document.getElementById('submitBtn').disabled = true;
-                document.getElementById('feedbackSection').style.display = 'none';
-                
-                // Focus input
-                setTimeout(() => {
-                    noteInput.focus();
-                }, 100);
-            }
-
-            generateRandomNote() {
-                const range = this.voiceRanges[this.selectedVoice];
-                let notes, clef;
-                
-                if (range.clef === 'both') {
-                    // Mixed practice - randomly choose clef
-                    clef = Math.random() < 0.5 ? 'treble' : 'bass';
-                    notes = clef === 'treble' ? range.trebleNotes : range.bassNotes;
-                } else {
-                    clef = range.clef;
-                    notes = range.notes;
-                }
-                
-                // Select random note
-                this.currentNote = notes[Math.floor(Math.random() * notes.length)];
-                this.currentClef = clef;
-                
-                console.log(`Generated note: ${this.currentNote} on ${clef} clef`); // Debug log
-                
-                // Update clef indicator
-                const clefIndicator = document.getElementById('clefIndicator');
-                clefIndicator.textContent = clef === 'treble' ? 'Treble Clef' : 'Bass Clef';
-                clefIndicator.className = `clef-indicator ${clef}-clef`;
-                
-                // Draw note on staff
-                this.drawStaff();
-            }
-
-            drawStaff() {
-                const canvas = document.getElementById('staffCanvas');
-                const ctx = canvas.getContext('2d');
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw staff lines
-                ctx.strokeStyle = '#333';
-                ctx.lineWidth = 2;
-                
-                const startY = 80; // Fixed position for consistency
-                
-                for (let i = 0; i < 5; i++) {
-                    const y = startY + i * 15;
-                    ctx.beginPath();
-                    ctx.moveTo(100, y);
-                    ctx.lineTo(500, y);
-                    ctx.stroke();
-                }
-                
-                // Draw clef
-                ctx.font = '48px serif';
-                ctx.fillStyle = '#333';
-                const clefSymbol = this.currentClef === 'treble' ? '𝄞' : '𝄢';
-                const clefY = 115; // Fixed position
-                ctx.fillText(clefSymbol, 110, clefY);
-                
-                // Draw note
-                this.drawNote(ctx);
-            }
-
-            drawNote(ctx) {
-                // Correctly positioned notes
-                const notePositions = {
-                    treble: {
-                        // Below staff 
-                        'G3': 184, // Space below second ledger line
-                        'A3': 177, // On second ledger line below staff
-                        'B3': 170, // Space below first ledger line
-                        'C4': 162, // On first ledger line below staff (middle C)
-                        'D4': 155, // Space below staff
-                        // On staff
-                        'E4': 147, // Bottom line
-                        'F4': 140, // First space
-                        'G4': 132, // Second line
-                        'A4': 125, // Second space
-                        'B4': 117, // Third line
-                        'C5': 110, // Third space
-                        'D5': 102, // Fourth line
-                        'E5': 95,  // Fourth space
-                        'F5': 87,  // Top line
-                        // Above staff
-                        'G5': 80   // Space above staff
-                    },
-                    bass: {
-                        // Below staff
-                        'E2': 184, // Space below second ledger line
-                        'F2': 177, // On second ledger line below
-                        'G2': 170, // Space below first ledger line
-                        'A2': 162, // On first ledger line below
-                        'B2': 155, // Space below staff
-                        // On staff  
-                        'C3': 147, // Bottom line (G)
-                        'D3': 140, // First space
-                        'E3': 132, // Second line (B)
-                        'F3': 125, // Second space
-                        'G3': 117, // Third line (D)
-                        'A3': 110, // Third space
-                        'B3': 102, // Fourth line (F)
-                        'C4': 95   // Fourth space
-                    }
-                };
-                
-                const positions = notePositions[this.currentClef];
-                if (!positions || !positions[this.currentNote]) {
-                    console.error(`No position found for ${this.currentNote} on ${this.currentClef} clef`);
-                    console.log('Available positions:', Object.keys(positions || {}));
-                    // Don't return - just draw a default position
-                    const y = 147; // Default to bottom line
-                    this.drawNoteAtPosition(ctx, 300, y);
-                    return;
-                }
-                
-                const y = positions[this.currentNote];
-                const x = 300;
-                
-                console.log(`Drawing note ${this.currentNote} at position y=${y}`);
-                
-                this.drawNoteAtPosition(ctx, x, y);
-                
-                // Debug info
-                ctx.fillStyle = '#333';
-                ctx.font = '16px Arial';
-                ctx.fillText(`Debug: ${this.currentNote} at y=${y}`, 10, 30);
-                
-                // Staff reference
-                ctx.font = '12px Arial';
-                if (this.currentClef === 'treble') {
-                    ctx.fillText(`Treble: E(147) G(132) B(117) D(102) F(87)`, 10, 50);
-                    ctx.fillText(`Below staff: C4(162-ledger) D4(155-space) | G3(184-space) A3(177-ledger)`, 10, 65);
-                }
-            }
-
-            drawNoteAtPosition(ctx, x, y) {
-                // Draw note head
-                ctx.fillStyle = '#e53e3e';
+        function drawStaff() {
+            const canvas = document.getElementById('staffCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw staff lines
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            
+            for (let i = 0; i < 5; i++) {
+                const y = 100 + i * 20;
                 ctx.beginPath();
-                ctx.ellipse(x, y, 12, 8, 0, 0, 2 * Math.PI);
-                ctx.fill();
-                
-                // Draw stem
-                ctx.strokeStyle = '#e53e3e';
-                ctx.lineWidth = 3;
-                ctx.beginPath();
-                if (y > 125) {
-                    ctx.moveTo(x + 12, y);
-                    ctx.lineTo(x + 12, y - 35);
-                } else {
-                    ctx.moveTo(x - 12, y);
-                    ctx.lineTo(x - 12, y + 35);
-                }
+                ctx.moveTo(100, y);
+                ctx.lineTo(500, y);
                 ctx.stroke();
-                
-                // Add ledger lines if needed
-                ctx.strokeStyle = '#333';
-                ctx.lineWidth = 2;
-                
-                const staffBottom = 147; // Bottom line of staff
-                
-                // Ledger lines below staff
-                if (y >= 162) { // First ledger line position (middle C)
+            }
+            
+            // Draw appropriate clef
+            ctx.font = '60px serif';
+            ctx.fillStyle = '#333';
+            if (currentClef === 'treble') {
+                ctx.fillText('𝄞', 110, 150);
+            } else {
+                ctx.fillText('𝄢', 110, 135);
+            }
+            
+            // Show clef type
+            ctx.font = '16px Arial';
+            ctx.fillStyle = '#4299e1';
+            ctx.fillText(`${currentClef.charAt(0).toUpperCase() + currentClef.slice(1)} Clef`, 20, 260);
+            
+            // Draw note
+            drawNote(ctx);
+            
+            // Debug text
+            ctx.fillStyle = '#333';
+            ctx.font = '16px Arial';
+            ctx.fillText(`Debug: ${currentNote}`, 20, 30);
+        }
+
+        function drawNote(ctx) {
+            const positions = notePositions[currentClef];
+            const y = positions[currentNote] || 150;
+            const x = 300;
+            
+            // Draw note
+            ctx.fillStyle = '#e53e3e';
+            ctx.beginPath();
+            ctx.ellipse(x, y, 10, 7, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Draw stem
+            ctx.strokeStyle = '#e53e3e';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            if (y > 150) {
+                ctx.moveTo(x + 10, y);
+                ctx.lineTo(x + 10, y - 30);
+            } else {
+                ctx.moveTo(x - 10, y);
+                ctx.lineTo(x - 10, y + 30);
+            }
+            ctx.stroke();
+            
+            // Add ledger lines if needed
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            
+            // Below staff ledger lines
+            if (y > 200) {
+                for (let ledgerY = 200; ledgerY <= y; ledgerY += 20) {
                     ctx.beginPath();
-                    ctx.moveTo(x - 20, 162);
-                    ctx.lineTo(x + 20, 162);
+                    ctx.moveTo(x - 15, ledgerY);
+                    ctx.lineTo(x + 15, ledgerY);
                     ctx.stroke();
                 }
-                if (y >= 177) { // Second ledger line position 
+            }
+            
+            // Above staff ledger lines  
+            if (y < 100) {
+                for (let ledgerY = 80; ledgerY >= y; ledgerY -= 20) {
                     ctx.beginPath();
-                    ctx.moveTo(x - 20, 177);
-                    ctx.lineTo(x + 20, 177);
+                    ctx.moveTo(x - 15, ledgerY);
+                    ctx.lineTo(x + 15, ledgerY);
                     ctx.stroke();
                 }
-                
-                // Ledger lines above staff
-                const staffTop = 87;
-                if (y <= 80) { // Above staff
-                    for (let ledgerY = staffTop - 15; ledgerY >= y - 5; ledgerY -= 15) {
-                        ctx.beginPath();
-                        ctx.moveTo(x - 20, ledgerY);
-                        ctx.lineTo(x + 20, ledgerY);
-                        ctx.stroke();
-                    }
-                }
-            }}
             }
+        }
 
-            handleNoteInput() {
-                const input = document.getElementById('noteInput');
-                const value = input.value.toUpperCase();
-                
-                // Only allow A-G
-                if (value && !/^[A-G]$/.test(value)) {
-                    input.value = '';
-                    return;
-                }
-                
-                // Enable submit button if valid input
-                document.getElementById('submitBtn').disabled = !value;
-            }
+        async function playNote() {
+            await Tone.start();
+            synth.triggerAttackRelease(currentNote, '1n');
+        }
 
-            submitAnswer() {
-                const userAnswer = document.getElementById('noteInput').value.toUpperCase();
-                const correctAnswer = this.currentNote.charAt(0);
-                const isCorrect = userAnswer === correctAnswer;
-                
-                // Store answer
-                this.answers.push({
-                    question: this.currentQuestion,
-                    note: this.currentNote,
-                    clef: this.currentClef,
-                    userAnswer: userAnswer,
-                    correctAnswer: correctAnswer,
-                    isCorrect: isCorrect
-                });
-                
-                // Update progress dot
-                const progressDot = document.getElementById(`progress-${this.currentQuestion}`);
-                if (progressDot) {
-                    progressDot.classList.remove('current');
-                    progressDot.classList.add(isCorrect ? 'correct' : 'incorrect');
-                    progressDot.textContent = isCorrect ? '✓' : '✗';
-                }
-                
-                // Disable input to prevent changes
-                document.getElementById('noteInput').disabled = true;
-                document.getElementById('submitBtn').disabled = true;
-                
-                // Show feedback
-                this.showFeedback(isCorrect, correctAnswer);
-                
-                // Auto-advance after delay
-                setTimeout(() => {
-                    this.nextQuestion();
-                }, 2000);
-            }
+        function submitAnswer() {
+            const userAnswer = document.getElementById('noteInput').value.toUpperCase();
+            const correctAnswer = currentNote.charAt(0);
+            const isCorrect = userAnswer === correctAnswer;
+            
+            answers.push(isCorrect);
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.style.display = 'block';
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.textContent = isCorrect ? 
+                `✅ Correct! That note is ${correctAnswer}.` : 
+                `❌ Not quite. That note is ${correctAnswer}, you answered ${userAnswer}.`;
+            
+            // Move to next question after delay
+            setTimeout(() => {
+                currentQuestion++;
+                nextQuestion();
+            }, 2000);
+        }
 
-            showFeedback(isCorrect, correctAnswer) {
-                const feedbackSection = document.getElementById('feedbackSection');
-                const userAnswer = document.getElementById('noteInput').value.toUpperCase();
-                
-                feedbackSection.style.display = 'block';
-                
-                console.log(`Feedback: User=${userAnswer}, Correct=${correctAnswer}, Match=${isCorrect}`);
-                
-                if (isCorrect) {
-                    feedbackSection.className = 'feedback-section feedback-correct';
-                    feedbackSection.innerHTML = `
-                        <div>✅ Correct!</div>
-                        <div>That note is ${correctAnswer}!</div>
-                    `;
-                } else {
-                    feedbackSection.className = 'feedback-section feedback-incorrect';
-                    feedbackSection.innerHTML = `
-                        <div>❌ Not quite...</div>
-                        <div>That note is ${correctAnswer}, you answered ${userAnswer}</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Note shown: ${this.currentNote}</div>
-                    `;
-                }
-            }
+        function showResults() {
+            const correct = answers.filter(a => a).length;
+            const percentage = Math.round((correct / totalQuestions) * 100);
+            
+            document.getElementById('quizSection').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('finalScore').textContent = `Score: ${correct}/${totalQuestions} (${percentage}%)`;
+        }
 
-            updateProgressDots() {
-                // Remove current class from all dots
-                document.querySelectorAll('.progress-dot').forEach(dot => {
-                    dot.classList.remove('current');
-                });
-                
-                // Add current class to current question
-                const currentDot = document.getElementById(`progress-${this.currentQuestion}`);
-                if (currentDot) {
-                    currentDot.classList.add('current');
-                }
-            }
+        function resetQuiz() {
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('voiceSelector').style.display = 'block';
+            document.getElementById('startSection').style.display = 'block';
+        }
 
-            async playCurrentNote() {
-                await Tone.start();
-                
-                const playBtn = document.getElementById('playNoteBtn');
-                const originalText = playBtn.textContent;
-                
-                playBtn.textContent = '🔊 Playing...';
-                playBtn.disabled = true;
-                
-                this.synth.triggerAttackRelease(this.currentNote, '1n');
-                
-                setTimeout(() => {
-                    playBtn.textContent = originalText;
-                    playBtn.disabled = false;
-                }, 1000);
-            }
-
-            completeQuiz() {
-                const correctAnswers = this.answers.filter(a => a.isCorrect).length;
-                const percentage = Math.round((correctAnswers / this.totalQuestions) * 100);
-                const timeSpent = Math.round((Date.now() - this.startTime) / 1000);
-                
-                // Simple streak increment for session
-                this.streak++;
-                this.quizTakenToday = true;
-                
-                // Show results
-                this.showResults(correctAnswers, percentage, timeSpent);
-            }
-
-            showResults(correctAnswers, percentage, timeSpent) {
-                // Hide quiz section
-                document.getElementById('quizSection').classList.add('hidden');
-                
-                // Show results
-                const resultsSection = document.getElementById('resultsSection');
-                resultsSection.style.display = 'block';
-                
-                // Update results display
-                document.getElementById('finalScore').textContent = `${correctAnswers}/${this.totalQuestions}`;
-                document.getElementById('correctCount').textContent = correctAnswers;
-                document.getElementById('percentageScore').textContent = percentage + '%';
-                document.getElementById('timeSpent').textContent = this.formatTime(timeSpent);
-                
-                // Update streak message
-                const streakMessage = document.getElementById('streakMessage');
-                if (percentage >= 80) {
-                    streakMessage.textContent = `Excellent work! Your ${this.streak}-day streak continues! 🔥`;
-                } else if (percentage >= 60) {
-                    streakMessage.textContent = `Good effort! Keep practicing to strengthen your streak.`;
-                } else {
-                    streakMessage.textContent = `Keep practicing! Every day of practice helps build your skills.`;
-                }
-                
-                // Update streak display
-                document.getElementById('streakNumber').textContent = this.streak;
-                
-                // Show export section
-                document.getElementById('exportSection').style.display = 'block';
-            }
-
-            formatTime(seconds) {
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = seconds % 60;
-                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-            }
-
-            resetQuiz() {
-                // Hide results and show quiz again
-                document.getElementById('resultsSection').style.display = 'none';
-                document.getElementById('exportSection').style.display = 'none';
-                document.getElementById('quizSection').classList.remove('hidden');
-                
-                // Reset quiz state
-                this.currentQuestion = 0;
-                this.answers = [];
-                this.startTime = Date.now();
-                
-                // Reset progress dots
-                this.generateDailyProgress();
-                this.nextQuestion();
-            }
-
-            resetForNewDay() {
-                // Reset everything for a fresh start
-                document.getElementById('resultsSection').style.display = 'none';
-                document.getElementById('exportSection').style.display = 'none';
-                document.getElementById('quizSection').classList.add('hidden');
-                document.getElementById('streakDisplay').style.display = 'none';
-                document.getElementById('voiceSelector').style.display = 'block';
-                document.getElementById('startSection').style.display = 'block';
-                
-                // Clear answers
-                this.answers = [];
-                this.currentQuestion = 0;
-            }
-
-            // Remove localStorage methods - not available in sandboxed environment
-            updateStreakDisplay() {
-                if (this.streak > 0) {
-                    document.getElementById('streakNumber').textContent = this.streak;
-                }
-            }
-
-            getResultsText() {
-                const correctAnswers = this.answers.filter(a => a.isCorrect).length;
-                const percentage = Math.round((correctAnswers / this.totalQuestions) * 100);
-                const timeSpent = Math.round((Date.now() - this.startTime) / 1000);
-                
-                let detailedResults = '';
-                this.answers.forEach((answer, index) => {
-                    detailedResults += `Question ${index + 1}: ${answer.note} (${answer.clef} clef) - `;
-                    detailedResults += `Student answered: ${answer.userAnswer}, Correct: ${answer.correctAnswer} `;
-                    detailedResults += `${answer.isCorrect ? '✓' : '✗'}\n`;
-                });
-
-                return `5-a-Day Note Reading Quiz Results
+        function getResultsText() {
+            const correct = answers.filter(a => a).length;
+            const percentage = Math.round((correct / totalQuestions) * 100);
+            
+            return `5-a-Day Note Reading Quiz Results
 Date: ${new Date().toLocaleString()}
 Student Name: ___________________
 
 QUIZ SUMMARY:
-Voice Type: ${this.selectedVoice.charAt(0).toUpperCase() + this.selectedVoice.slice(1)}
-Score: ${correctAnswers}/${this.totalQuestions} (${percentage}%)
-Time Taken: ${this.formatTime(timeSpent)}
-Current Streak: ${this.streak} days
-
-DETAILED RESULTS:
-${detailedResults}
+Voice Type: ${selectedVoice.charAt(0).toUpperCase() + selectedVoice.slice(1)}
+Clef: ${currentClef.charAt(0).toUpperCase() + currentClef.slice(1)} Clef
+Score: ${correct}/${totalQuestions} (${percentage}%)
 
 PERFORMANCE ANALYSIS:
 ${percentage >= 80 ? 'Excellent note reading! Student shows strong staff recognition skills.' :
@@ -1159,61 +523,59 @@ ${percentage >= 80 ? 'Excellent note reading! Student shows strong staff recogni
   'Needs more practice. Recommend additional note identification exercises.'}
 
 NOTES FOR TEACHER:
-- Student practiced notes appropriate for their voice type
-- Daily practice helps build automatic note recognition
+- Student practiced notes appropriate for their voice type and clef
+- Daily 5-question practice helps build automatic note recognition
+- Voice-specific ranges ensure students read notes they'll actually sing
 - Consider additional staff reading exercises if score is below 60%
-- Streak tracking encourages consistent practice habits
 
 RECOMMENDATIONS:
-- Continue daily 5-a-Day practice
+- Continue daily 5-a-Day practice for consistent improvement
 - Focus on note reading within comfortable vocal range
 - Use audio playback feature to connect visual and auditory learning
-- Build toward sight-singing once note recognition is automatic
+- Build toward sight-singing once note recognition becomes automatic
 
 Generated by 5-a-Day Note Reading Quiz
 Part of the Choir Education Tool Suite`;
-            }
+        }
 
-            copyResults() {
-                const resultsText = this.getResultsText();
-                
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(resultsText).then(() => {
-                        const status = document.getElementById('copyStatus');
-                        status.style.display = 'block';
-                        setTimeout(() => { status.style.display = 'none'; }, 2000);
-                    });
-                } else {
-                    const textarea = document.createElement('textarea');
-                    textarea.value = resultsText;
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textarea);
-                    
+        function copyResults() {
+            const resultsText = getResultsText();
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(resultsText).then(() => {
                     const status = document.getElementById('copyStatus');
                     status.style.display = 'block';
                     setTimeout(() => { status.style.display = 'none'; }, 2000);
-                }
-            }
-
-            exportResults() {
-                const resultsText = this.getResultsText();
-                const dataBlob = new Blob([resultsText], {type: 'text/plain'});
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `note-reading-quiz-${new Date().toISOString().split('T')[0]}.txt`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
+                });
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = resultsText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                
+                const status = document.getElementById('copyStatus');
+                status.style.display = 'block';
+                setTimeout(() => { status.style.display = 'none'; }, 2000);
             }
         }
 
-        window.addEventListener('load', () => {
-            new NoteReadingQuiz();
-        });
+        function exportResults() {
+            const resultsText = getResultsText();
+            const dataBlob = new Blob([resultsText], {type: 'text/plain'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `note-reading-quiz-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        // Start everything
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
