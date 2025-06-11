@@ -283,9 +283,9 @@
         // Note positions
         const notePositions = {
             treble: {
-                'E4': 140, 'F4': 130, 'G4': 120, 'A4': 110, 'B4': 100,
-                'C5': 90, 'D5': 80, 'E5': 70, 'F5': 60, 'G5': 50,
-                'D4': 150, 'C4': 160, 'B3': 170, 'A3': 180, 'G3': 190, 'F3': 200
+                'E4': 100, 'F4': 90, 'G4': 80, 'A4': 70, 'B4': 60,
+                'C5': 50, 'D5': 40, 'E5': 30, 'F5': 20, 'G5': 10,
+                'D4': 110, 'C4': 120, 'B3': 130, 'A3': 140, 'G3': 150, 'F3': 160
             },
             bass: {
                 'G2': 120, 'A2': 110, 'B2': 100, 'C3': 90, 'D3': 80,
@@ -394,6 +394,11 @@
                 ctx.moveTo(100, y);
                 ctx.lineTo(500, y);
                 ctx.stroke();
+                
+                // Debug: Label each line
+                ctx.fillStyle = '#666';
+                ctx.font = '12px Arial';
+                ctx.fillText(`Line ${i + 1}: y=${y}`, 510, y + 4);
             }
             
             // Draw appropriate clef
@@ -417,6 +422,7 @@
             ctx.fillStyle = '#333';
             ctx.font = '16px Arial';
             ctx.fillText(`Debug: ${currentNote}`, 20, 30);
+            ctx.fillText(`Note Y Position: ${notePositions[currentClef][currentNote]}`, 20, 50);
         }
 
         function drawNote(ctx, staffTop, lineSpacing) {
