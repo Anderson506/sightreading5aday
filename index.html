@@ -209,6 +209,10 @@
                     <div>Tenor</div>
                     <div style="font-size: 0.8rem; color: #718096;">Treble Clef</div>
                 </div>
+                <div class="voice-btn" data-voice="baritone">
+                    <div>Baritone</div>
+                    <div style="font-size: 0.8rem; color: #718096;">Bass Clef</div>
+                </div>
                 <div class="voice-btn" data-voice="bass">
                     <div>Bass</div>
                     <div style="font-size: 0.8rem; color: #718096;">Bass Clef</div>
@@ -272,7 +276,11 @@
             },
             tenor: {
                 clef: 'treble',
-                notes: ['A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']  // Start with a practical range
+                notes: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']  // More practical tenor range
+            },
+            baritone: {
+                clef: 'bass',
+                notes: ['A2', 'B2', 'C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4']  // Typical baritone range
             },
             bass: {
                 clef: 'bass',
