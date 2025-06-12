@@ -272,7 +272,7 @@
             },
             tenor: {
                 clef: 'treble',
-                notes: ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
+                notes: ['A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']  // Start with a practical range
             },
             bass: {
                 clef: 'bass',
@@ -280,20 +280,59 @@
             }
         };
 
-        // Note positions
-        const notePositions = {
-            treble: {
-                'E4': 100, 'F4': 90, 'G4': 80, 'A4': 70, 'B4': 60,
-                'C5': 50, 'D5': 40, 'E5': 30, 'F5': 20, 'G5': 10,
-                'D4': 110, 'C4': 120, 'B3': 130, 'A3': 140, 'G3': 150, 'F3': 160
-            },
-            bass: {
-                'G2': 120, 'A2': 110, 'B2': 100, 'C3': 90, 'D3': 80,
-                'E3': 70, 'F3': 60, 'G3': 50, 'A3': 40, 'B3': 30,
-                'C4': 20, 'D4': 10, 'E4': 0, 'F4': -10, 'G4': -20, 'A4': -30,
-                'F2': 130, 'E2': 140
-            }
-        };
+        function getNotePosition(note, clef, staffTop, lineSpacing) {
+            // Define the position of each note relative to the staff
+            const treblePositions = {
+                // Notes above the staff
+                'G5': -1,  // Above top line
+                'F5': 0,   // Top line
+                'E5': 1,   // Top space
+                'D5': 2,   // Fourth line
+                'C5': 3,   // Fourth space
+                'B4': 4,   // Third line
+                'A4': 5,   // Third space
+                'G4': 6,   // Second line
+                'F4': 7,   // Second space
+                'E4': 8,   // First line
+                'D4': 9,   // First space
+                'C4': 10,  // First ledger line below
+                'B3': 11,  // First space below
+                'A3': 12,  // Second ledger line below
+                'G3': 13,  // Second space below
+                'F3': 14,  // Third ledger line below
+                'E3': 15,  // Third space below
+                'D3': 16,  // Fourth ledger line below
+                'C3': 17   // Fourth space below
+            };
+
+            const bassPositions = {
+                'G2': 8,   // Bottom line
+                'A2': 7,   // First space
+                'B2': 6,   // Second line
+                'C3': 5,   // Second space
+                'D3': 4,   // Third line
+                'E3': 3,   // Third space
+                'F3': 2,   // Fourth line
+                'G3': 1,   // Fourth space
+                'A3': 0,   // Fifth line
+                'B3': -1,  // Fifth space
+                'C4': -2,  // First ledger line above
+                'D4': -3,  // First space above
+                'E4': -4,  // Second ledger line above
+                'F4': -5,  // Second space above
+                'G4': -6,  // Third ledger line above
+                'A4': -7,  // Third space above
+                'F2': 9,   // First ledger line below
+                'E2': 10   // First space below
+            };
+
+            const positions = clef === 'treble' ? treblePositions : bassPositions;
+            const position = positions[note] || 0;
+            
+            // Calculate the y-coordinate based on the position
+            // Each position represents half a line spacing (space or line)
+            return staffTop + (position * lineSpacing / 2);
+        }
 
         // Initialize
         function init() {
@@ -394,11 +433,6 @@
                 ctx.moveTo(100, y);
                 ctx.lineTo(500, y);
                 ctx.stroke();
-                
-                // Debug: Label each line
-                ctx.fillStyle = '#666';
-                ctx.font = '12px Arial';
-                ctx.fillText(`Line ${i + 1}: y=${y}`, 510, y + 4);
             }
             
             // Draw appropriate clef
@@ -417,17 +451,10 @@
             
             // Draw note
             drawNote(ctx, staffTop, lineSpacing);
-            
-            // Debug text
-            ctx.fillStyle = '#333';
-            ctx.font = '16px Arial';
-            ctx.fillText(`Debug: ${currentNote}`, 20, 30);
-            ctx.fillText(`Note Y Position: ${notePositions[currentClef][currentNote]}`, 20, 50);
         }
 
         function drawNote(ctx, staffTop, lineSpacing) {
-            const positions = notePositions[currentClef];
-            const y = positions[currentNote] || staffTop + 40;
+            const y = getNotePosition(currentNote, currentClef, staffTop, lineSpacing);
             const x = 300;
             
             // Draw note
